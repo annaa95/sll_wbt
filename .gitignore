@@ -1,0 +1,13 @@
+*.log
+*.wbproj
+*.so
+*.chache
+*.txt
+bin/
+worlds/.*txt
+protos/.*cache
+plugins/physics/my_physics2/build
+plugins/physics/my_physics2/*.so
+controllers/supervisorManager/logs
+controllers/supervisorManager/__pycache__
+controllers/supervisorManager/models/PhilTabor/__pycache__

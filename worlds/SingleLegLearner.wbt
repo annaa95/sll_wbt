@@ -1,0 +1,72 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+  physics "my_physics2"
+  basicTimeStep 4
+  coordinateSystem "NUE"
+  dragForceScale 1
+  dragTorqueScale 1
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896257 0.5773502691896258 2.0943951023931953
+  position -4.437125370423931e-16 2.500000000000003 14.247322961139414
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+DEF MEDIUM Fluid {
+  translation 0 2.25 0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 0.5 0.8
+        transparency 0.8
+        emissiveColor 0 0.5 0.9
+        emissiveIntensity 0.5
+      }
+      geometry Box {
+        size 50 5 5
+      }
+    }
+  ]
+  name "variable density medium"
+  density 1014.882521937956
+  boundingObject Box {
+    size 50 5 5
+  }
+}
+DEF FLOOR UnevenTerrain {
+  translation 0 -0.25 0
+  rotation 1 0 0 -1.57
+  size 50 5 0.1
+  xDimension 100
+  yDimension 100
+  appearance SandyGround {
+    colorOverride 1 1 0.9
+    textureTransform TextureTransform {
+      scale 50 50
+    }
+  }
+  randomSeed -10
+}
+DEF Supervisor Robot {
+  children [
+    Emitter {
+      rotation -0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.0943951023931953
+    }
+    Emitter {
+      rotation -0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.0943951023931953
+      name "pressure_emitter"
+      channel 1
+    }
+    Receiver {
+      rotation -0.5773502691896258 -0.5773502691896258 -0.5773502691896258 2.0943951023931953
+    }
+    Display {
+      width 256
+    }
+  ]
+  name "supervisor robot"
+  controller "<extern>"
+  supervisor TRUE
+}

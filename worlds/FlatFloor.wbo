@@ -1,0 +1,14 @@
+#VRML_OBJ R2021b utf8
+DEF FLOOR Floor {
+  rotation 0 1 0 1.57
+  size 2 1000
+  appearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "https://raw.githubusercontent.com/cyberbotics/webots/R2021b/projects/default/worlds/textures/checkered_marble.jpg"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+}

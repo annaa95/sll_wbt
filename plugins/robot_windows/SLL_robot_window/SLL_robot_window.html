@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <link type="text/css" rel="stylesheet" href='../../../../include/tabs.css' />
+  </head>
+  <body>
+    <div id='infotabs' class='wrapper webotsTabs'>
+      <div>
+        <input class="radio" id="overview" name="group" type="radio">
+        <label class="tab" for="overview">Overview</label>
+        <div class="panel">
+          <h2>Overview</h2>
+		  <p>This simulation aims to investigate how to learn the dynamical stopping task with a Single-leg robot using provided with a more or less dense set of touch sensors. The simulation is organized into two main controllers, in the Python programming language.</p>
+		  <p>The goal is for the robot to lear a mapping from any arbitrary state to a hopping state with 0 horizontal velocity.</p>
+		  <p>To encourage robust behaviour, noise is injected in sensors' readings, as well as in floor mesh, reinitialized at each episode.</p>
+        </div>
+        <input class="radio" id="metrics" name="group" type="radio" checked>
+        <label class="tab" for="metrics">Metrics</label>
+        <div class="panel">
+          <h2>Metrics</h2>
+          <div style='text-align:center'><em>t</em> = <span id='time-display'>00:00:00</span></div>
+          <br>
+          <p>The learning metric is <em>log(1+1/|x'|)</em>, a function of the apex horizontal velocity. Maximizing the metrics is the goal for this scenario.</p>
+          <p>The simulation stops after either the robot horizontal speed is less than 0.01 m/s l or if the robot body hit the ground or in any case after 5 consecutive jumps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="obstacle_avoidance.js"></script>
+    <script>
+      let height;
+      function adaptPositionOfText() {
+        let tabs = document.getElementsByClassName('tab')
+        if(!tabs.length > 0)
+          return
+        let newHeight = tabs[tabs.length - 1].getBoundingClientRect().top + tabs[tabs.length - 1].getBoundingClientRect().height;
+        if(newHeight === height)
+          return;
+        height = newHeight;
+        let panels = document.getElementsByClassName('panel');
+        Array.from(panels).forEach((panel) => {
+          panel.style.top = height + 'px';
+        });
+      }
+      window.addEventListener('resize', adaptPositionOfText);
+      adaptPositionOfText();
+    </script>
+  </body>
+</html>

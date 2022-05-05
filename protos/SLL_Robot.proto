@@ -1,0 +1,124 @@
+PROTO SLL_Robot [
+  field SFVec3f    translation  0 0.8 0
+  field SFRotation rotation     0 1 0 0
+]
+{
+    Robot {
+        translation -0.0346352 1.34 0.0135519
+        rotation 0 -1 0 0.0472002
+        children [
+            Emitter {
+            }
+            Receiver {
+            }
+            DEF T0 Transform {
+                children [
+                    Shape {
+                        appearance DEF BODY_COLOR3 PBRAppearance {
+                            baseColor 0.0820075 0.364731 0.8
+                            roughness 1
+                            metalness 0
+                        }
+                        geometry DEF BODY3 Sphere {
+                            radius 0.044
+                        }
+                    }
+                ]
+            }
+            HingeJoint {
+                jointParameters HingeJointParameters {
+                    axis 0 0 1
+                }
+                device [
+                    RotationalMotor {
+                    }
+                ]
+                endPoint Solid {
+                    translation 0 -0.25 0
+                    rotation 0 0 1 0
+                    children [
+                        DEF T1 Transform {
+                            rotation 0 0 -1 0
+                            children [
+                                Shape {
+                                    appearance DEF SEGMENT_B3app PBRAppearance {
+                                        metalness 0
+                                    }
+                                    geometry DEF SEGMENT_B3 Box {
+                                        size 0.05 0.5 0.05
+                                    }
+                                }
+                            ]
+                        }
+                        DEF T2 Transform {
+                            translation 0 -0.25 0
+                            children [
+                                HingeJoint {
+                                    jointParameters HingeJointParameters {
+                                        axis 0 0 1
+                                    }
+                                    device [
+                                        RotationalMotor {
+                                        }
+                                    ]
+                                    endPoint Solid {
+                                        rotation 0 0 1 0    
+                                        children [
+                                            HingeJoint {
+                                                jointParameters HingeJointParameters {
+                                                    axis 0 0 1
+                                                    springConstant 100
+                                                }
+                                                endPoint Solid {
+                                                    translation 0 -0.25 0
+                                                    rotation 0 0 1 0
+                                                    children [
+                                                        Shape {
+                                                            appearance USE SEGMENT_B3app
+                                                            geometry USE SEGMENT_B3
+                                                        }
+                                                    ]
+                                                    boundingObject USE SEGMENT_B3
+                                                    physics Physics {
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                        boundingObject USE BODY3
+                                        physics Physics {
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                    boundingObject USE SEGMENT_B3
+                    physics Physics {
+                    }
+                }
+            }
+        ]
+        name "Hopping MyBot"
+        boundingObject Group {
+            children [
+                Transform {
+                    children [
+                        USE BODY3
+                    ]
+                }
+            ]
+        }
+        physics Physics {
+            density -1
+            mass 0.5
+            centerOfMass [
+                0 0 0
+            ]
+            inertiaMatrix [
+                0.00124 0.000529 0.00124
+                0 0 0
+            ]
+        }
+        controller "void"
+    }
+}
