@@ -52,6 +52,7 @@ class SLL_RobotController(RobotEmitterReceiverCSV):
         self.encoders = [self.robot.getDevice("hip_encoder"), self.robot.getDevice("knee_encoder")]
         for i in range(2):
             self.encoders[i].enable(self.timestep)
+            self.motor[i].enableTorqueFeedback(self.timestep)
         # ----robot other vars init----
         self.message = None
         #---- define the FSM for the locomotion controller---
